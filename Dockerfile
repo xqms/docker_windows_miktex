@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/server/core:1809
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 WORKDIR /workspace
 RUN curl.exe -L -o miktex.zip https://miktex.org/download/win/miktexsetup-x64.zip

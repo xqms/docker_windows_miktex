@@ -16,4 +16,4 @@ jobs:
         password: ${{ secrets.docker_password }}
     - name: "Push to Docker Hub"
       if: ${{ github.ref == 'refs/heads/main' }}
-      run: docker push xqms/windows/miktex
+      run: docker push xqms/windows_miktex

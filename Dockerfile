@@ -10,11 +10,13 @@ RUN powershell -Command \
   Expand-Archive -Path c:\miktex.zip -DestinationPath c:\ ; \
   start-Process c:\miktexsetup_standalone.exe -ArgumentList '--package-set=basic --local-package-repository C:\miktex_temp --shared=yes --verbose download' -Wait ; \
   start-Process c:\miktexsetup_standalone.exe -ArgumentList '--package-set=basic --local-package-repository C:\miktex_temp --shared=yes --verbose install' -Wait ; \
-  start-Process mpm -ArgumentList '--verbose --install xstring' -Wait ; \
   # Remove unneeded files ; \
   Remove-Item c:\miktex_temp -Force -Recurse; \
   Remove-Item c:\miktex.zip -Force; \
   Remove-Item c:\miktexsetup_standalone.exe -Force
+
+# Install additional required packages
+RUN mpm.exe --verbose --install xstring
 
 # Check if we can run pdflatex
 RUN pdflatex -help

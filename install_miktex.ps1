@@ -22,10 +22,14 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";"
 
 # Install additional packages
 'xstring', 'preview', 'adjustbox', 'etexcmds', 'catchfile', 'ltxcmds', 'infwarerr', 'ifplatform', 'pgfopts', 'letltxmacro', 'filemod' |
-    Foreach-Object { Retry-Command -TimeoutInSecs 2 -Verbose -ScriptBlock {
-        & mpm.exe --verbose --admin --install=$_
-        if($lastexitcode -ne '0')
-        {
-            Throw "failed"
+    Foreach-Object {
+        $PackageName=$_
+        Retry-Command -TimeoutInSecs 2 -Verbose -ScriptBlock {
+            Write-Verbose "Executing mpm.exe --verbose --install=$PackageName `n"
+            & mpm.exe --verbose --install=$PackageName
+            if($lastexitcode -ne '0')
+            {
+                Throw "failed"
+            }
         }
-    } }
+    }

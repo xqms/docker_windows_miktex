@@ -17,6 +17,16 @@ RUN powershell -Command \
 
 # Install additional required packages
 RUN mpm.exe --verbose --install xstring
+RUN mpm.exe --verbose --install preview
+RUN mpm.exe --verbose --install adjustbox
+RUN mpm.exe --verbose --install etexcmds
+RUN mpm.exe --verbose --install catchfile
+RUN mpm.exe --verbose --install ltxcmds
+RUN mpm.exe --verbose --install infwarerr
+RUN mpm.exe --verbose --install ifplatform
+RUN mpm.exe --verbose --install pgfopts
+RUN mpm.exe --verbose --install letltxmacro
+RUN mpm.exe --verbose --install filemod
 
 # Check if we can run pdflatex
 RUN pdflatex -help

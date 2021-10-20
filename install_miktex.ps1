@@ -21,7 +21,7 @@ Remove-Item c:\miktexsetup_standalone.exe -Force
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
 # Install additional packages
-'xstring', 'preview', 'adjustbox', 'etexcmds', 'catchfile', 'ltxcmds', 'infwarerr', 'ifplatform', 'pgfopts', 'letltxmacro', 'filemod' |
+'xstring', 'preview', 'adjustbox', 'etexcmds', 'catchfile', 'ltxcmds', 'infwarerr', 'ifplatform', 'pgfopts', 'letltxmacro', 'filemod', 'collectbox', 'ifoddpage', 'varwidth' |
     Foreach-Object {
         $PackageName=$_
         Retry-Command -TimeoutInSecs 2 -Verbose -ScriptBlock {

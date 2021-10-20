@@ -2,21 +2,11 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 WORKDIR /workspace
 
-# Download & install MikTeX
-RUN powershell -Command \
-  # Download software ; \
-  wget https://miktex.org/download/win/miktexsetup-x64.zip -OutFile C:\miktex.zip ; \
-  # Install Software ; \
-  Expand-Archive -Path c:\miktex.zip -DestinationPath c:\ ; \
-  start-Process c:\miktexsetup_standalone.exe -ArgumentList '--package-set=basic --local-package-repository C:\miktex_temp --shared=yes --verbose download' -Wait ; \
-  start-Process c:\miktexsetup_standalone.exe -ArgumentList '--package-set=basic --local-package-repository C:\miktex_temp --shared=yes --verbose install' -Wait ; \
-  # Remove unneeded files ; \
-  Remove-Item c:\miktex_temp -Force -Recurse; \
-  Remove-Item c:\miktex.zip -Force; \
-  Remove-Item c:\miktexsetup_standalone.exe -Force
+COPY Retry-Command.ps1 /
+COPY install_miktex.ps1 /
 
-# Install additional required packages
-RUN mpm.exe --verbose --install xstring
+# Download & install MikTeX
+RUN powershell -File C:\install_miktex.ps1
 
 # Check if we can run pdflatex
 RUN pdflatex -help

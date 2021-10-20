@@ -1,5 +1,11 @@
+$ErrorActionPreference = "Stop"
+
+. C:\Retry-Command.ps1
+
 # Download software
-wget https://miktex.org/download/win/miktexsetup-x64.zip -OutFile C:\miktex.zip;
+Retry-Command -TimeoutInSecs 2 -Verbose -ScriptBlock {
+    wget https://miktex.org/download/win/miktexsetup-x64.zip -OutFile C:\miktex.zip
+}
 
 # Install Software
 Expand-Archive -Path c:\miktex.zip -DestinationPath c:\
@@ -12,8 +18,6 @@ Remove-Item c:\miktex.zip -Force
 Remove-Item c:\miktexsetup_standalone.exe -Force
 
 # Install additional packages
-. C:\Retry-Command.ps1
-
 'xstring', 'preview', 'adjustbox', 'etexcmds', 'catchfile', 'ltxcmds', 'infwarerr', 'ifplatform', 'pgfopts', 'letltxmacro', 'filemod' |
     Foreach-Object { Retry-Command -TimeoutInSecs 2 -Verbose -ScriptBlock {
         & npm.exe --verbose --admin --install $_

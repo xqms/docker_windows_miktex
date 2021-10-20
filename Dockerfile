@@ -6,7 +6,7 @@ COPY Retry-Command.ps1 /
 COPY install_miktex.ps1 /
 
 # Download & install MikTeX
-RUN powershell C:\install_miktex.ps1
+RUN powershell -File C:\install_miktex.ps1
 
 # Check if we can run pdflatex
 RUN pdflatex -help

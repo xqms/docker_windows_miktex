@@ -15,7 +15,7 @@ Remove-Item c:\miktexsetup_standalone.exe -Force
 . C:\Retry-Command.ps1
 
 'xstring', 'preview', 'adjustbox', 'etexcmds', 'catchfile', 'ltxcmds', 'infwarerr', 'ifplatform', 'pgfopts', 'letltxmacro', 'filemod' |
-    Foreach-Object { Retry-Command -ScriptBlock {
+    Foreach-Object { Retry-Command -TimeoutInSecs 2 -Verbose -ScriptBlock {
         & npm.exe --verbose --admin --install $_
         if($lastexitcode -ne '0')
         {

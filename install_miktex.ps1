@@ -17,10 +17,13 @@ Remove-Item c:\miktex_temp -Force -Recurse
 Remove-Item c:\miktex.zip -Force
 Remove-Item c:\miktexsetup_standalone.exe -Force
 
+# Reload PATH
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+
 # Install additional packages
 'xstring', 'preview', 'adjustbox', 'etexcmds', 'catchfile', 'ltxcmds', 'infwarerr', 'ifplatform', 'pgfopts', 'letltxmacro', 'filemod' |
     Foreach-Object { Retry-Command -TimeoutInSecs 2 -Verbose -ScriptBlock {
-        & npm.exe --verbose --admin --install $_
+        & mpm.exe --verbose --admin --install=$_
         if($lastexitcode -ne '0')
         {
             Throw "failed"

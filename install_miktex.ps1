@@ -25,7 +25,7 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";"
     Foreach-Object {
         $PackageName=$_
         Retry-Command -TimeoutInSecs 2 -Verbose -ScriptBlock {
-            Write-Verbose "Executing mpm.exe --verbose --admin --install=$PackageName `n"
+            Write-Verbose "Executing mpm.exe --verbose --install=$PackageName `n"
             & mpm.exe --verbose --install=$PackageName
             if($lastexitcode -ne '0')
             {

@@ -132,6 +132,7 @@ function Retry-Command {
                     Write-Verbose "$FailureMessage! Total retry attempts: $RetryCount"
                     Write-Verbose "[Error Message] $($_.exception.message) `n"
                     $Flag = $false
+                    Throw "Could not execute command"
                 }
                 else {
                     Write-Verbose "[$Attempt/$RetryCount] $FailureMessage. Retrying in $TimeoutInSecs seconds..."
